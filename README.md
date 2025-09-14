@@ -1,3 +1,13 @@
 # Aleksandar Travel
 
 Projekat pod nazivom Aleksandar Travel predstavlja web aplikaciju namenjenu turističkoj agenciji koja omogućava korisnicima jednostavno i brzo zakazivanje putovanja. Ideja za ovaj projekat proizašla je iz moje lične strasti prema putovanjima i želje da napravim aplikaciju koja korisnicima omogućava lakši pristup informacijama o destinacijama i brzu rezervaciju aranžmana. Glavni cilj projekta je da korisnicima omogući najefikasniji i najbrži put do željene destinacije, sa naglaskom na jednostavnost korišćenja i brzinu zakazivanja. Kroz ovaj sistem, korisnici mogu pregledati dostupne destinacije, detaljno upoznati svaku od njih, a nakon prijave, zakazati aranžmane, pregledati galeriju slika, ostaviti komentare i upravljati omiljenim destinacijama.
+
+
+## Tehnologije korišćene
+
+- Java  
+- Tomcat
+- Vue 3 
+- HTML / CSS / JavaScript
+- Axios 
+- MySQL
