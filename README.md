@@ -4,6 +4,7 @@ Projekat pod nazivom Aleksandar Travel predstavlja web aplikaciju namenjenu turi
 
 
 ## Tehnologije korišćene
+Projekat je radjen u NetBeansu i povezan je sa TomCat-om!
 
 - Java  
 - Tomcat
