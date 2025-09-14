@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aleksandar Travel</title>
+        <link rel="icon" type="image/x-icon" href="logo.png">
+        <!-- PrimeVue theme CSS -->
+        <link href="https://unpkg.com/primevue/resources/themes/lara-light-blue/theme.css" rel="stylesheet" />
+        <!-- PrimeVue core CSS -->
+        <link href="https://unpkg.com/primevue/resources/primevue.min.css" rel="stylesheet" />
+        <!-- PrimeIcons (za pi pi-heart itd.) -->
+        <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/vue@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-router@4/dist/vue-router.global.prod.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <!-- PrimeVue plugin UMD -->
+        <script src="https://unpkg.com/primevue/umd/primevue.min.js"></script>
+        <!-- PrimeVue Button komponenta -->
+        <script src="https://unpkg.com/primevue/umd/button.min.js"></script>
+        <script src="https://unpkg.com/primevue/umd/rating.min.js"></script>
+
+        <!-- Tvoj axios wrapper -->
+        <script src="/axios.js"></script>
+        <script>
+            //ovaj deo modifikovati po potrebi projekta
+            axios.defaults.baseURL = "http://localhost:8080";
+            const routes = [
+                {path: '/', component: () => load('/home.vue')},
+                {path: '/ulogujse', component: () => load('/login.vue')},
+                {path: '/odjavljivanje', component: () => load('/logout.vue')},
+                {path: '/korisnici', component: () => load('/users.vue')},
+                {path: '/galerija', component: () => load('/gallery.vue')},
+                {path: '/registrujse', component: () => load('/register.vue')},
+                {path: '/kontakt', component: () => load('/contact.vue')},
+                {path: '/zakazivanje', component: () => load('/zakazivanje.vue')},
+                {path: '/lastminute', component: () => load('/lastminute.vue')},
+                {path: '/omiljene', component: () => load('/omiljene.vue')},
+                {path: '/adminpanel', component: () => load('/adminpanel.vue')},
+                {path: '/adminaranzmani', component: () => load('/adminaranzmani.vue')},
+                {path: '/admindestinacije', component: () => load('/admindestinacije.vue')},
+                {path: '/admindrzave', component: () => load('/admindrzave.vue')},
+                {path: '/adminobjekti', component: () => load('/adminobjekti.vue')},
+                {path: '/adminkomentari', component: () => load('/adminkomentari.vue')},
+                {path: '/adminslike', component: () => load('/adminslike.vue')}
+            ]
+            //do ovog dela
+
+            const options = {
+                moduleCache: {
+                    vue: Vue,
+                    "vue-router": VueRouter,
+                    axios: axios,
+                },
+                async getFile(url) {
+
+                    const res = await fetch(url);
+                    if (!res.ok)
+                        throw Object.assign(new Error(res.statusText + ' ' + url), {res});
+                    return {
+                        getContentData: asBinary => asBinary ? res.arrayBuffer() : res.text(),
+                    }
+                },
+                addStyle(textContent) {
+                    const style = Object.assign(document.createElement('style'), {textContent});
+                    const ref = document.head.getElementsByTagName('style')[0] || null;
+                    document.head.insertBefore(style, ref);
+                }
+            }
+
+            const {loadModule} = window['vue3-sfc-loader'];
+
+            function load(path) {
+                return loadModule(path, options);
+            }
+
+            const  app = Vue.createApp(Vue.defineAsyncComponent(() => load('/app.vue')));
+
+            app.use(PrimeVue);
+
+            app.component('Button', PrimeVue.Button);
+            app.component('Rating', PrimeVue.Rating);
+
+
+            const router = VueRouter.createRouter({
+                history: VueRouter.createWebHistory(),
+                routes
+            })
+
+            app.use(router);
+            app.mount(document.body);
+
+        </script>
+    </body>
+</html>
